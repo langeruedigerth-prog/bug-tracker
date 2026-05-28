@@ -4,9 +4,10 @@ pipeline {
     stages {
         stage('Unit Tests - Backend') {
             steps {
-                dir('bug-tracker/bugtracker-backend') {
-                    // Using your exact 2019 BuildTools path to run the tests
-                    bat '"C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\BuildTools\\Common7\\IDE\\CommonExtensions\\Microsoft\\TestWindow\\vstest.console.exe" *Test*.dll'
+                // Stay at the main workspace root folder where the .sln lives
+                dir('bug-tracker') {
+                    // Running the test tool directly against the solution file
+                    bat '"C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\BuildTools\\Common7\\IDE\\CommonExtensions\\Microsoft\\TestWindow\\vstest.console.exe" bug-tracker.sln'
                 }
             }
         }
