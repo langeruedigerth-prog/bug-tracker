@@ -5,8 +5,8 @@ pipeline {
         stage('Unit Tests - Backend') {
             steps {
                 dir('bug-tracker/bugtracker-backend') {
-                    // This is the correct Microsoft command to run all unit tests in Visual Studio
-                    bat 'dotnet test'
+                    // Using your exact 2019 BuildTools path to run the tests
+                    bat '"C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\BuildTools\\Common7\\IDE\\CommonExtensions\\Microsoft\\TestWindow\\vstest.console.exe" *Test*.dll'
                 }
             }
         }
