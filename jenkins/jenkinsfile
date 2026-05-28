@@ -2,16 +2,11 @@ pipeline {
     agent any
 
     stages {
-        stage('Hello') {
+        stage('Unit Tests - Backend') {
             steps {
-                // This is a built-in Jenkins step—it works perfectly on Windows and Linux!
-                echo 'Hello World'
-                
-                // Changed 'sh' to 'bat' for Windows Command Prompt
-                bat 'echo Hello Jenkins!'
-                
-                // Using powershell to safely print the date without freezing the build
-                powershell 'Get-Date'
+                dir('bug-tracker/bugtracker-backend') {
+                    bat 'go test -v ./...'
+                }
             }
         }
     }
