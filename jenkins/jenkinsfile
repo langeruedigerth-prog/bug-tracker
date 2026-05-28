@@ -5,7 +5,8 @@ pipeline {
         stage('Unit Tests - Backend') {
             steps {
                 dir('bug-tracker/bugtracker-backend') {
-                    bat 'go test -v ./...'
+                    // This is the correct Microsoft command to run all unit tests in Visual Studio
+                    bat 'dotnet test'
                 }
             }
         }
