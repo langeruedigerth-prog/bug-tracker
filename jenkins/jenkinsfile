@@ -4,12 +4,31 @@ pipeline {
     stages {
         stage('Unit Tests - Backend') {
             steps {
-                // Stay at the main workspace root folder where the .sln lives
                 dir('bug-tracker') {
-                    // Running the test tool directly against the solution file
-                    bat '"C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\BuildTools\\Common7\\IDE\\CommonExtensions\\Microsoft\\TestWindow\\vstest.console.exe" bug-tracker.sln'
+                    // Keeping your existing step for now
+                    bat '"C:\\Program Files (x86)\\..." ' 
                 }
             }
+        }
+
+        stage('Launch Application') {
+            agent {
+                docker {
+                    image 'docker:27.5.1'
+                    reuseNode true
+                    args '-v /var/run/docker.sock:/var/run/docker.sock -u 0'
+                }
+            }
+            steps {
+                sh 'docker compose up --build -d'
+            }
+        }
+    }
+
+    // This goes at the very end, right before the final closing bracket
+    post {
+        always {
+            cleanWs()
         }
     }
 }
