@@ -6,10 +6,12 @@ services:
   frontend:
     build:
       context: ./bugtracker-frontend
+      args:
+        - NEXT_PUBLIC_API_URL=https://congenial-rotary-phone-wvrr6xqqjprwhgwjq-8081.app.github.dev
     ports:
       - "3000:3000"
     environment:
-      - NEXT_PUBLIC_API_URL=http://localhost:8080
+      - NEXT_PUBLIC_API_URL=https://congenial-rotary-phone-wvrr6xqqjprwhgwjq-8081.app.github.dev
     depends_on:
       backend:
         condition: service_healthy
@@ -25,7 +27,7 @@ services:
     build:
       context: ./bugtracker-backend
     ports:
-      - "8080:8080"
+      - "8081:8080"
     volumes:
       - ./data:/app/data
     networks:
