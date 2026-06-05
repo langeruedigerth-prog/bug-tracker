@@ -11,7 +11,7 @@ pipeline {
             }
         }
 
-        stage('Launch Application') {
+        stage('Launch Application 1') {
             agent {
                 docker {
                     image 'docker:27.5.1'
@@ -21,6 +21,22 @@ pipeline {
             }
             steps {
                 sh 'docker compose up --build -d'
+            }
+        }
+
+        stage('E2E Tests') {
+            agent {
+                docker {
+                    image 'docker:27.5.1'
+                    reuseNode true
+                    args '-u 0 --network=host'
+                }
+            }
+            steps {
+                dir('tests-e2e') {
+                    sh 'npm ci'
+                    sh'npx playwright test'
+                }
             }
         }
     }
